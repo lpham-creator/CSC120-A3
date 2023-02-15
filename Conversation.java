@@ -29,7 +29,7 @@ class Conversation {
             transcript.add("Bot: " + response);
        
             }
-            else{
+            else {
             String nex_input = input.nextLine();
             transcript.add("You: " + nex_input);
 
@@ -78,14 +78,7 @@ class Conversation {
                 String[] responses = {
                     "I hear you!",
                     "Tell me more.",
-                    "That's interesting.",
-                    "I'm not sure I understand. Can you explain?",
-                    "What do you think about that?",
-                    "Hmm, I see.",
-                    "Please go on.",
-                    "That's a good point.",
-                    "I appreciate your input.",
-                    "I'm sorry, I don't know the answer.",
+                    "That's interesting."
                 };
                 return responses[random.nextInt(responses.length)];
         }
