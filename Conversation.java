@@ -9,6 +9,7 @@ class Conversation {
         int rounds = input.nextInt();
 
         List<String> transcript = new ArrayList<>();
+
         String opening = "Hi there! What's on your mind?";
         System.out.println(opening);
         transcript.add("Bot: " + opening);
@@ -61,11 +62,11 @@ class Conversation {
         }
         i++;
     }
-            System.out.println("Goodbye!");
-            System.out.println("Here's the transcript of our conversation:");
-            for (String line : transcript) {
-                if (line.isEmpty()==false) {
-                    System.out.println(line);
+        System.out.println("Goodbye!");
+        System.out.println("Here's the transcript of our conversation:");
+        for (String line : transcript) {
+            if (line.isEmpty()==false) {
+                System.out.println(line);
 
         }
         
