@@ -1,5 +1,15 @@
+/* 
+   Filename: Conversation.java
+Description: Academic project A3 for the class CSC 120: Object Oriented Programming, prof. R. Jordan Crouser. This file contains the class Conversation for a Chatbot, which can respond to user for a determined number of rounds and print out the transcript at the end.
+     Author: Linh Pham (@lpham-creator)
+       Date: 15 Feb 2023
+
+*/
 import java.util.*;
 
+/** class Conversation
+ * The class constructor, which takes in the number of rounds and takes turn answering to users, then prints out transcript of the conversation at the end
+ */
 class Conversation {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
@@ -72,7 +82,10 @@ class Conversation {
         
     }
     }
-        
+        /** method getCannedResponse
+        * @param random
+        * This method stores all the canned response in a string
+        */
         public static String getCannedResponse(Random random) {
                 // This method returns a random canned response from a set of predefined phrases.
                 String[] responses = {
@@ -83,6 +96,10 @@ class Conversation {
                 return responses[random.nextInt(responses.length)];
         }
 
+        /** method containsPronouns
+        * @param string
+        * This method stores all the canned response in a string
+        */
         public static boolean containsPronouns(String input) {
             // This method returns true if the input contains pronouns.
             return input.contains("I")
