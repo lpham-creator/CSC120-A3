@@ -56,13 +56,13 @@ _____ (Kudos!) Handles you --> me/I dilemma
 
       **YES**  Classes & class members all have Javadoc header comments
 
-      _____ Clear and consistent indentation of bracketed sections
+      **YES** Clear and consistent indentation of bracketed sections
 
-      _____ Adheres to Java conventions on naming & capitalization
+      **YES** Adheres to Java conventions on naming & capitalization
 
-      _____ Methods & variables all have clear and accurate names
+      **YES** Methods & variables all have clear and accurate names
 
-      _____ Methods avoid confusing side effects
+      **PART** Methods avoid confusing side effects
 
 **YES** 1 pt: All required files included with submission (including completed checklist file)
 
