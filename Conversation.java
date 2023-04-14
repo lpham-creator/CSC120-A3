@@ -1,116 +1,117 @@
-/* 
-   Filename: Conversation.java
-Description: Academic project A3 for the class CSC 120: Object Oriented Programming, prof. R. Jordan Crouser. This file contains the class Conversation for a Chatbot, which can respond to user for a determined number of rounds and print out the transcript at the end.
-     Author: Linh Pham (@lpham-creator)
-       Date: 15 Feb 2023
-
-*/
+import java.util.Scanner;
+import java.util.Random;
 import java.util.*;
 
-
-
-/** class Conversation
- * The class constructor, which takes in the number of rounds and takes turn answering to users, then prints out transcript of the conversation at the end
+/**
+ * A simple command-line conversation program that simulates a dialogue with a user.
  */
-class Conversation {
+public class Conversation {
+
+    /**
+     * An ArrayList of canned responses to use during the conversation.
+     */
+    public static ArrayList<String> responses = new ArrayList<>(List.of("Hi there! What's on your mind?",
+            "I hear you!",
+            "Tell me more.",
+            "That's interesting.",
+            "I'm not sure I understand. Can you explain?",
+            "What do you think about that?",
+            "Hmm, I see.",
+            "Please go on.",
+            "That's a good point.",
+            "I appreciate your input.",
+            "I'm sorry, I don't know the answer."
+    ));
+
+    /**
+     * The main method that runs the conversation program.
+     * @param args The command line arguments.
+     */
     public static void main(String[] args) {
-        Scanner input = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
         Random random = new Random();
 
         System.out.print("How many rounds of conversation would you like to have? ");
-        int rounds = input.nextInt();
+        int rounds = scanner.nextInt();
+        scanner.nextLine(); // Consume the newline character
 
-        List<String> transcript = new ArrayList<>();
-
-        String opening = "Hi there! What's on your mind?";
-        System.out.println(opening);
-        transcript.add("Bot: " + opening);
-
-        String users_input = input.nextLine();
-        transcript.add("You: " + users_input);
-
-        int i = 0;
-        while (i < rounds){
-            String next_input = input.nextLine();
-            String[] words = next_input.split(" ");
-            transcript.add("You: " + next_input);
-
-            if (containsPronouns(next_input)==false){
-            String response = getCannedResponse(random);
-            System.out.println(response);
-            transcript.add("Bot: " + response);
-       
+        String[] transcript = new String[rounds];
+        String prevInput = null;
+        int round = 0;
+        while (round < rounds) {
+            System.out.print("> ");
+            String input = scanner.nextLine().toLowerCase();
+            if (prevInput != null && containsPronouns(input)) {
+                String response = mirror(prevInput);
+                transcript[round] = "> " + input + "\n" + "< " + response;
+                System.out.println("< " + response);
+            } else {
+                String response = getCannedResponse(random);
+                transcript[round] = "> " + input + "\n" + "< " + response;
+                System.out.println("< " + response);
             }
-            else {
-            String nex_input = input.nextLine();
-            transcript.add("You: " + nex_input);
-
-            for (int j = 0; j < words.length; j++) {
-                String word = words[j];
-    
-                if (word.equalsIgnoreCase("I")) {
-                    words[j] = "you";
-                    String mirroredSentence = String.join(" ", words);
-                    System.out.println(mirroredSentence + "?");
-                    transcript.add("Bot: " + mirroredSentence + "?");
-                } else if (word.equalsIgnoreCase("you")) {
-                    words[j] = "I";
-                    String mirroredSentence = String.join(" ", words);
-                    System.out.println(mirroredSentence + "?");
-                    transcript.add("Bot: " + mirroredSentence + "?");
-                } else if (word.equalsIgnoreCase("me")) {
-                    words[j] = "you";
-                    String mirroredSentence = String.join(" ", words);
-                    System.out.println(mirroredSentence + "?");
-                    transcript.add("Bot: " + mirroredSentence + "?");
-                } else if (word.equalsIgnoreCase("your")) {
-                    words[j] = "my";
-                    String mirroredSentence = String.join(" ", words);
-                    System.out.println(mirroredSentence + "?");
-                    transcript.add("Bot: " + mirroredSentence + "?");
-                }
-                
-            }
+            prevInput = input;
+            round++;
         }
-        i++;
-    }
+
         System.out.println("Goodbye!");
         System.out.println("Here's the transcript of our conversation:");
-        for (String line : transcript) {
-            if (line.isEmpty()==false) {
-                System.out.println(line);
-
+        for (int i = 0; i < transcript.length; i++) {
+            System.out.println(transcript[i]);
         }
-        
     }
-    }
-        /** method getCannedResponse
-        * @param random
-        * This method stores all the canned response in a string
-        */
-        public static String getCannedResponse(Random random) {
-                // This method returns a random canned response from a set of predefined phrases.
-                String[] responses = {
-                    "I hear you!",
-                    "Tell me more.",
-                    "That's interesting."
-                };
-                return responses[random.nextInt(responses.length)];
-        }
 
-        /** method containsPronouns
-        * @param string
-        * This method stores all the canned response in a string
-        */
-        public static boolean containsPronouns(String input) {
-            // This method returns true if the input contains pronouns.
-            return input.contains("I")
+    /**
+     * Returns true if the input contains any pronouns.
+     * @param input The input string to check.
+     * @return true if the input contains any pronouns, false otherwise.
+     */
+    public static boolean containsPronouns(String input) {
+        return input.contains("i")
                 || input.contains("me")
                 || input.contains("am")
                 || input.contains("you")
                 || input.contains("my")
                 || input.contains("your");
-        }
+    }
 
-    
-  }
+    /**
+     * Returns a mirrored version of the input string.
+     * @param input The input string to mirror.
+     * @return A mirrored version of the input string.
+     */
+    public static String mirror(String input) {
+        String mirrored = input;
+    if (input.contains("i")) {
+        mirrored = mirrored.replaceAll("\\bi\\b", "you");
+    }
+    if (input.contains("me")) {
+        mirrored = mirrored.replaceAll("\\bme\\b", "you");
+    }
+    if (input.contains("am")) {
+        mirrored = mirrored.replaceAll("\\bam\\b", "are");
+    }
+    if (input.contains("you")) {
+        mirrored = mirrored.replaceAll("\\byou\\b", "I");
+    }
+    if (input.contains("my")) {
+        mirrored = mirrored.replaceAll("\\bmy\\b", "your");
+    }
+    if (input.contains("your")) {
+        mirrored = mirrored.replaceAll("\\byour\\b", "my");
+    }
+    return mirrored;
+    }
+
+    /**
+     * Returns a random canned response from the list of responses.
+     * @param random A Random object to use for selecting the response.
+     * @return A random canned response.
+     */
+    public static String getCannedResponse(Random random) {
+        return responses.get(random.nextInt(responses.size()));
+    }
+
+}
+
+
